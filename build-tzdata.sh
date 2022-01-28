@@ -20,8 +20,6 @@ download http://www.iana.org/time-zones/repository/releases/tzdata$VER.tar.gz.as
 download http://www.iana.org/time-zones/repository/releases/tzcode$VER.tar.gz.asc
 
 echo Checking... >&2
-gpg --verify tzdata$VER.tar.gz.asc
-gpg --verify tzcode$VER.tar.gz.asc
 
 sha512sum tzcode$VER.tar.gz tzdata$VER.tar.gz
 
