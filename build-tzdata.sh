@@ -2,7 +2,7 @@
 
 set -e
 
-VER=2022d
+VER=2022f
 
 base=$(dirname $(readlink -f $0))
 cd $base
@@ -24,8 +24,8 @@ echo Checking... >&2
 sha512sum tzcode$VER.tar.gz tzdata$VER.tar.gz
 
 sha512sum -c /dev/stdin <<EOF
-54491ef8dbab7c41754eb3f2990b8ccb2a10960098c7d78d94375d7f1362540f0d71ba77a46bcaf95f419f8d01a23bdf940cdc9c7906c23ad6c40cd1c788b1c2  tzcode$VER.tar.gz
-f0d9f1dc6b7613598a861a3860f249e5beff75d8c4bb12bae21018ee617044cf25065dff08f81b0e6ed2c43602f2166dd6407a989a369a004e068260f2eece30  tzdata$VER.tar.gz
+3e2ef91b972f1872e3e8da9eae9d1c4638bfdb32600f164484edd7147be45a116db80443cd5ae61b5c34f8b841e4362f4beefd957633f6cc9b7def543ed6752b  tzcode2022f.tar.gz
+72d05d05be999075cdf57b896c0f4238b1b862d4d0ed92cc611736592a4ada14d47bd7f0fc8be39e7938a7f5940a903c8af41e87859482bcfab787d889d429f6  tzdata2022f.tar.gz
 EOF
 
 echo Unpacking... >&2
@@ -35,31 +35,14 @@ cd tzdist
 tar xzf ../tzcode$VER.tar.gz
 tar xzf ../tzdata$VER.tar.gz
 
-echo Building... >&2
-make TOPDIR=$base/tzdist/dest ZFLAGS='-b fat' install
-
-echo Renaming... >&2
-cd $base
-rm -rf tzdata
-mv tzdist/dest/usr/share/zoneinfo tzdata
-cd tzdata
-find . -type f -name '[A-Z]*' -exec mv '{}' '{}.zone' \;
-
-echo Patching for symlinked compilation... >&2
-cd $base/tzdist
-patch -p1 < $base/tzcode.patch
-
 echo Building symlinked zoneinfo for compilation... >&2
-make clean
+cd $base/tzdist
 make TOPDIR=$base/tzdist/dest ZFLAGS='-b fat' CFLAGS=-DHAVE_LINK=0 install
 
-echo Cleaning up zoneinfo root directory... >&2
-cd $base/tzdist/dest/usr/share/zoneinfo
-# We don't want these:
-rm -f *.tab Factory posixrules localtime leapseconds tzdata.zi
-mkdir Root
-find . -maxdepth 1 -type f -exec mv '{}' Root \;
-for f in Root/*; do ln -s $f .; done
+mkdir $base/tzdata
+rm dest/usr/share/zoneinfo/leapseconds
+rm dest/usr/share/zoneinfo/tzdata.zi
+mv dest/usr/share/zoneinfo/*.tab $base/tzdata
 
 if [ "x$USE_CABAL" = "xYES" ]; then
   echo Compiling the tool... >&2
@@ -78,3 +61,5 @@ else
   cd $base
   stack exec genZones tzdist/dest/usr/share/zoneinfo/ Data/Time/Zones/DB.hs.template Data/Time/Zones/DB.hs
 fi
+find $base/tzdist/dest/usr/share/zoneinfo -type f -name '[A-Z]*' -exec mv '{}' '{}.zone' \;
+cp -vr $base/tzdist/dest/usr/share/zoneinfo/* $base/tzdata/
