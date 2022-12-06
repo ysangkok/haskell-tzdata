@@ -2,7 +2,7 @@
 
 set -e
 
-VER=2022f
+VER=2022g
 
 base=$(dirname $(readlink -f $0))
 cd $base
@@ -24,8 +24,8 @@ echo Checking... >&2
 sha512sum tzcode$VER.tar.gz tzdata$VER.tar.gz
 
 sha512sum -c /dev/stdin <<EOF
-3e2ef91b972f1872e3e8da9eae9d1c4638bfdb32600f164484edd7147be45a116db80443cd5ae61b5c34f8b841e4362f4beefd957633f6cc9b7def543ed6752b  tzcode2022f.tar.gz
-72d05d05be999075cdf57b896c0f4238b1b862d4d0ed92cc611736592a4ada14d47bd7f0fc8be39e7938a7f5940a903c8af41e87859482bcfab787d889d429f6  tzdata2022f.tar.gz
+5188edd8d05238a88da734cf78fadfb57640d4db3e7a0a9dddd70e3071e16b6eebc2e2ab17109b7dafafae68abfbc857df481cfdc3ffe63f7eb1569ea0b5997a  tzcode2022g.tar.gz
+7f79394295e00e3a24ebdbf9af3bc454a65f432a93b517e7e96c7f9db9949f6f5fdae9892a9d3789ff44ae0eb1bfe4744d36976b4624659af951d26414f94e65  tzdata2022g.tar.gz
 EOF
 
 echo Unpacking... >&2
