@@ -28,7 +28,7 @@ case_Etc__GMT'1_is_Etc__GMT'1 = do
 
 case_aliases :: IO ()
 case_aliases =
-  America__Argentina__Buenos_Aires @=? fromJust (fromTZName "America/Buenos_Aires")
+  America__Buenos_Aires @=? fromJust (fromTZName "America/Argentina/Buenos_Aires")
 
 case_fromToName :: IO ()
 case_fromToName = forM_ [minBound .. maxBound] t
