@@ -44,11 +44,12 @@ rm dest/usr/share/zoneinfo/leapseconds
 rm dest/usr/share/zoneinfo/tzdata.zi
 mv dest/usr/share/zoneinfo/*.tab $base/tzdata
 
-sudo apt install rdfind
+sudo apt install rdfind fdupes
 # How do decide which tz is the 'primary'? We punt and just use the
 # deterministic flag from rdfind.
 RDFIND="rdfind -dryrun false -removeidentinode false -deterministic true -makeresultsfile false"
 
+fdupes -Hr $base/tzdist/dest/usr/share/zoneinfo | python3 $base/split.py | sh
 $RDFIND -makesymlinks true -makehardlinks false $base/tzdist/dest/usr/share/zoneinfo
 
 if [ "x$USE_CABAL" = "xYES" ]; then
