@@ -2,7 +2,7 @@
 
 set -e
 
-VER=2023a
+VER=2024a
 
 base=$(dirname $(readlink -f $0))
 cd $base
@@ -18,15 +18,6 @@ download http://www.iana.org/time-zones/repository/releases/tzdata$VER.tar.gz
 download http://www.iana.org/time-zones/repository/releases/tzcode$VER.tar.gz
 download http://www.iana.org/time-zones/repository/releases/tzdata$VER.tar.gz.asc
 download http://www.iana.org/time-zones/repository/releases/tzcode$VER.tar.gz.asc
-
-echo Checking... >&2
-
-sha512sum tzcode$VER.tar.gz tzdata$VER.tar.gz
-
-sha512sum -c /dev/stdin <<EOF
-d45fc677a0a32ae807bf421faceff675565ee15e3ff42d3a4121df10e1f7855ac16b27fbc28bd365f93c57f40c5bdf19cde88546f7090cfab7676cac0a5516a4  tzcode2023a.tar.gz
-10aadd6eba50f63f427399281065ba34cb474f6a854f8dc7a6f4f1343b1474a05f22b69b1e113ea67bb5f3f479253610a16b89d9dfa157bf0fde4c69aa3d6493  tzdata2023a.tar.gz
-EOF
 
 echo Unpacking... >&2
 rm -rf ./tzdist

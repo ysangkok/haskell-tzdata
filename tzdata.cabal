@@ -1,5 +1,5 @@
 Name: tzdata
-Version: 0.2.20230322.0
+Version: 0.2.20240201.0
 License: Apache-2.0
 License-File: LICENSE
 Author: Mihaly Barasz, Gergely Risko
@@ -16,7 +16,7 @@ Description:
   Database in a cabal package, so that it can be used in Haskell
   programs uniformly on all platforms.
   .
-  This package currently ships the @2023a@ version of the time zone
+  This package currently ships the @2024a@ version of the time zone
   database.  The version of the time zone database shipped is always
   reflected in the version of this package: @x.y.YYYYMMDD.z@, then
   @YYYYMMDD@ is the official release date of time zone database.
@@ -55,9 +55,9 @@ Library
   GHC-Options: -Wall
   Build-Depends:
     base               >= 4        && < 5,
-    bytestring         >= 0.9      && < 0.12,
-    containers         >= 0.5      && < 0.7,
-    deepseq            >= 1.1      && < 1.5,
+    bytestring         >= 0.9      && < 0.13,
+    containers         >= 0.5      && < 0.8,
+    deepseq            >= 1.1      && < 1.6,
     vector             >= 0.9      && < 0.14
 
   if !impl(ghc >= 7.8)
@@ -72,7 +72,7 @@ Test-Suite test-db
   Build-Depends:
     tzdata,
     base                       >= 4       && < 5,
-    bytestring                 >= 0.9     && < 0.12,
+    bytestring                 >= 0.9     && < 0.13,
     HUnit                      >= 1.2     && < 1.7,
     tasty,
     tasty-hunit,

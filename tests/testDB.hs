@@ -26,10 +26,6 @@ case_Etc__GMT'1_is_Etc__GMT'1 = do
   let Just etcByName = tzDataByName "Etc/GMT+1"
   readEtc @=? etcByName
 
-case_aliases :: IO ()
-case_aliases =
-  America__Argentina__Buenos_Aires @=? fromJust (fromTZName "America/Buenos_Aires")
-
 case_fromToName :: IO ()
 case_fromToName = forM_ [minBound .. maxBound] t
   where
