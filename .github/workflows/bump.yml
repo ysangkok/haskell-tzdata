@@ -21,7 +21,7 @@ jobs:
       - run: USE_CABAL=YES ./build-tzdata.sh
 
       - name: cache cabal store
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: bump-action-cabal-store-${{ runner.os }}-${{ github.sha }}
           path: ~/.cabal/store
