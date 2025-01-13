@@ -15,7 +15,7 @@ jobs:
   bump:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # These following two lines are custom
       - run: cabal update
       - run: USE_CABAL=YES ./build-tzdata.sh
