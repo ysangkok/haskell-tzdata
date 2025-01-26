@@ -2,7 +2,7 @@
 
 set -e
 
-VER=2024a
+VER=2025a
 
 base=$(dirname $(readlink -f $0))
 cd $base
